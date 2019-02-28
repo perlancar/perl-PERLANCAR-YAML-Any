@@ -26,7 +26,7 @@ sub _do {
 
     for my $impl (@IMPLEMENTATIONS) {
         (my $impl_pm = "$impl.pm") =~ s!::!/!g;
-        eval { require $impl; 1 };
+        eval { require $impl_pm; 1 };
         next if $@;
         my $res; eval { $res = &{"$impl\::$sub"}(@_) };
         if ($@) {
@@ -45,6 +45,8 @@ sub DumpFile { _do('DumpFile', @_) }
 
 1;
 # ABSTRACT: Pick a YAML implementation and use it
+
+=for Pod::Coverage .+
 
 =head1 SYNOPSIS
 
